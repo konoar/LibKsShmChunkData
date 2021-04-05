@@ -13,7 +13,6 @@ SRCDIR	:= ./src/
 TSTDIR	:= ./test/
 OBJDIR	:= ./obj/
 CFLAGS	:= -I$(INCDIR) -I/usr/local/include -O0 
-CPPFLAGS:= -I$(INCDIR) -I/usr/local/include -O0 
 LDFLAGS	:= -L$(LIBDIR) -lksshmchunkdata
 LDFLAGS += -L/usr/local/lib -lstdc++ -lpthread -lgtest -lgtest_main
 TGTLIB	:= $(LIBDIR)libksshmchunkdata.a
