@@ -9,7 +9,7 @@
 #include "KsShmChunkDataFIFO.h"
 
 #define KS_IS_FULL( _SZ_, _SP_, _EP_ ) \
-    (*_SP_ == 0) ? *_EP_ == (_SZ_ - 1) : *_EP_ == (*_SP_ - 1) 
+    (*_EP_ == (_SZ_ - 1)) ? *_SP_ == 0 : *_SP_ == (*_EP_ + 1)
 
 int ksShmChunkDataFIFOInit(
     ksChkIDPtr  list,
@@ -18,7 +18,7 @@ int ksShmChunkDataFIFOInit(
     ksChkIDPtr  end)
 {
     *start  = 0;
-    *end    = size - 1;
+    *end = size - 1;
 
     *list = KS_SHMCHKDATA_INVALID_VALUE;
     for (int idx = 1; idx < size; idx++) {
@@ -39,11 +39,13 @@ int ksShmChunkDataFIFOPut(
         return KS_NG;
     }
 
-    if (*start <= *end) {
-
+    if (*end == (size - 1)) {
+        *end = 0;
     } else {
-
+        *end += 1;
     }
+
+    list[*end] = id;
 
     return KS_OK;
 }
